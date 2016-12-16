@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>com.sap.ui2.srvc</groupId>
+    <artifactId>maven-webapp-pom</artifactId>
+    <version>1.26.3</version>
+    <relativePath>../maven/poms/maven-webapp-pom/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>proxy</artifactId>
+  <packaging>war</packaging>
+  <name>proxy Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sap.ui2.srvc</groupId>
+      <artifactId>tools</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>proxy</finalName>
+    <plugins>
+        <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+                <attachClasses>true</attachClasses>
+                <classesClassifier>classes</classesClassifier>
+            </configuration>
+        </plugin>
+    </plugins>
+  </build>
+</project>

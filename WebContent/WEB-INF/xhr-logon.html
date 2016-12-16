@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2009-2014 SAP SE, All Rights Reserved -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <title>Simulated Logon Page</title>
+  </head>
+  <body>
+    <h1>Simulated Logon Page</h1>
+    Realm: <i>${REALM}</i>
+    <p>
+      <button id="cancel" title="Simulate Failure">Cancel</button>
+      <button id="ok" title="Simulate Logon">OK</button>
+    </p>
+
+    <script type="text/javascript">
+        "use strict";
+        /*global document, parent */
+        document.getElementById("cancel").addEventListener("click", function () {
+          parent.postMessage(JSON.stringify({
+            xhrLogon: {type: "iframe", realm: "${REALM}", status: 403,
+              message: "Authentication cancelled"}
+          }), '*');
+        });
+
+        document.getElementById("ok").addEventListener("click", function () {
+          // Note: in theory, bad characters in rule name can spoil the cookie; be careful!
+          var sRuleName = "${REALM}".match(/\[([.\w]*)\]/)[1];
+          document.cookie = "X-XHR-Logon-" + sRuleName + "=*; path=/";
+
+          parent.postMessage(JSON.stringify({
+            xhrLogon: {type: "iframe", realm: "${REALM}", status: 200}
+          }), '*');
+        });
+    </script>
+  </body>
+</html>
